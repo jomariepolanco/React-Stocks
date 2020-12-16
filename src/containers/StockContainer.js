@@ -4,7 +4,7 @@ import Stock from '../components/Stock'
 class StockContainer extends Component {
 
   renderStockCards = () => {
-    return this.props.stocks.map(stock => <Stock key={stock.id} stockObj={stock}/>)
+    return this.props.stocks.map(stock => <Stock key={stock.id} clickedStock={this.props.clickedStock} stockObj={stock}/>)
   }
 
   render() {

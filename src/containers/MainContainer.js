@@ -6,13 +6,22 @@ import SearchBar from '../components/SearchBar'
 class MainContainer extends Component {
 
   state = {
-    stocks: []
+    stocks: [],
+    portfolio: []
   }
 
   componentDidMount(){
     fetch('http://localhost:3000/stocks')
     .then(r => r.json())
     .then(stocksArr => this.setState({stocks: stocksArr}))
+  }
+
+  boughtStock = (stockObj) => {
+    this.setState({portfolio: [...this.state.portfolio, stockObj]})
+  }
+
+  sellStock = (stockObj) => {
+    
   }
 
   render() {
@@ -23,12 +32,12 @@ class MainContainer extends Component {
           <div className="row">
             <div className="col-8">
 
-              <StockContainer stocks={this.state.stocks}/>
+              <StockContainer clickedStock={this.boughtStock} stocks={this.state.stocks}/>
 
             </div>
             <div className="col-4">
 
-              <PortfolioContainer/>
+              <PortfolioContainer stocks={this.state.portfolio}/>
 
             </div>
           </div>
