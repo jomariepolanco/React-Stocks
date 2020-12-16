@@ -7,7 +7,9 @@ class MainContainer extends Component {
 
   state = {
     stocks: [],
-    portfolio: []
+    portfolio: [],
+    alphaCheck: false,
+    priceCheck: false
   }
 
   componentDidMount(){
@@ -28,10 +30,38 @@ class MainContainer extends Component {
     this.setState({portfolio: newArray})
   }
 
+  sortStocks = (value) => {
+    if (value === "Alphabetically"){
+      this.setState({alphaCheck: true, priceCheck: false})
+      this.alphabeticalSort()
+    } else if (value === "Price"){
+      this.setState({priceCheck: true, alphaCheck: false})
+      this.priceSort()
+    }
+  }
+  
+  alphabeticalSort = () => {
+    const newArray = [...this.state.stocks].sort((a, b) => {
+      if (a.ticker < b.ticker){
+        return -1
+      }
+      if (a.ticker > b.ticker){
+        return 1
+      }
+      return 0
+    })
+    this.setState({stocks: newArray})
+  }
+
+  priceSort = () => {
+    const newArray = [...this.state.stocks].sort((a, b) => a.price - b.price)
+    this.setState({stocks: newArray})
+  }
+
   render() {
     return (
       <div>
-        <SearchBar/>
+        <SearchBar sortStocks={this.sortStocks} alphaCheck={this.state.alphaCheck} priceCheck={this.state.priceCheck}/>
 
           <div className="row">
             <div className="col-8">
