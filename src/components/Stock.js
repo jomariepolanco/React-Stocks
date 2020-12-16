@@ -4,7 +4,7 @@ class Stock extends React.Component{
 
 
   handleClick = () => {
-    this.props.clickedStock(this.props.stockObj)
+    this.props.clickedStock(this.props.stockObj.id)
   }
 
   render(){
