@@ -5,6 +5,16 @@ import SearchBar from '../components/SearchBar'
 
 class MainContainer extends Component {
 
+  state = {
+    stocks: []
+  }
+
+  componentDidMount(){
+    fetch('http://localhost:3000/stocks')
+    .then(r => r.json())
+    .then(stocksArr => this.setState({stocks: stocksArr}))
+  }
+
   render() {
     return (
       <div>
@@ -13,7 +23,7 @@ class MainContainer extends Component {
           <div className="row">
             <div className="col-8">
 
-              <StockContainer/>
+              <StockContainer stocks={this.state.stocks}/>
 
             </div>
             <div className="col-4">
