@@ -21,7 +21,8 @@ class MainContainer extends Component {
   }
 
   sellStock = (stockObj) => {
-    
+    let newArray = [...this.state.portfolio].filter(stock => stock.id !== stockObj.id)
+    this.setState({portfolio: newArray})
   }
 
   render() {
@@ -37,7 +38,7 @@ class MainContainer extends Component {
             </div>
             <div className="col-4">
 
-              <PortfolioContainer stocks={this.state.portfolio}/>
+              <PortfolioContainer clickedStock={this.sellStock} stocks={this.state.portfolio}/>
 
             </div>
           </div>
