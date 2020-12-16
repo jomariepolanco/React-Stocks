@@ -8,6 +8,7 @@ class MainContainer extends Component {
   state = {
     stocks: [],
     portfolio: [],
+    filter: "All",
     alphaCheck: false,
     priceCheck: false
   }
@@ -58,15 +59,27 @@ class MainContainer extends Component {
     this.setState({stocks: newArray})
   }
 
+  updateFilter = (value) => {
+    this.setState({filter: value})
+  }
+
+  filterSort = () => {
+    let filteredStocks = [...this.state.stocks]
+    if (this.state.filter !== "All"){
+      filteredStocks = filteredStocks.filter(stock => stock.type == this.state.filter)
+    } 
+    return filteredStocks
+  }
+
   render() {
     return (
       <div>
-        <SearchBar sortStocks={this.sortStocks} alphaCheck={this.state.alphaCheck} priceCheck={this.state.priceCheck}/>
+        <SearchBar updateFilter={this.updateFilter} sortStocks={this.sortStocks} alphaCheck={this.state.alphaCheck} priceCheck={this.state.priceCheck}/>
 
           <div className="row">
             <div className="col-8">
 
-              <StockContainer clickedStock={this.boughtStock} stocks={this.state.stocks}/>
+              <StockContainer clickedStock={this.boughtStock} stocks={this.filterSort()}/>
 
             </div>
             <div className="col-4">

@@ -7,7 +7,9 @@ class SearchBar extends React.Component {
     this.props.sortStocks(e.target.value)
   }
 
-  
+  handleFilter = (e) => {
+    this.props.updateFilter(e.target.value)
+  }
 
   render(){
     return (
@@ -26,7 +28,8 @@ class SearchBar extends React.Component {
   
         <label>
           <strong>Filter:</strong>
-          <select onChange={null}>
+          <select onChange={this.handleFilter}>
+            <option value="All">All</option>
             <option value="Tech">Tech</option>
             <option value="Sportswear">Sportswear</option>
             <option value="Finance">Finance</option>
